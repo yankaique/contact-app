@@ -1,0 +1,10 @@
+.next
+.cache
+prisma
+package-lock.json
+public
+node_modules
+next-env.d.ts
+next.config.ts
+pnpm-lock.yaml
+eslint.config.mjs

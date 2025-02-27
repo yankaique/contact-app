@@ -1,16 +1,20 @@
-import CryptoJS from 'crypto-js';
+import bcrypt from 'bcryptjs';
 
-const SECRET_KEY = process.env.ENCRYPTION_KEY;
+const SALT_ROUNDS = 10;
 
-function encryptData(data: string) {
-  if (!SECRET_KEY) throw new Error('Chave de criptografia inválida');
-  return CryptoJS.AES.encrypt(data, SECRET_KEY).toString();
+async function hashPassword(password: string) {
+  return await bcrypt.hash(password, SALT_ROUNDS);
 }
 
-function decryptData(encryptedData: string) {
-  if (!SECRET_KEY) throw new Error('Chave de criptografia inválida');
-  const bytes = CryptoJS.AES.decrypt(encryptedData, SECRET_KEY);
-  return bytes.toString(CryptoJS.enc.Utf8);
-}
+type VerifyPasswordProps = {
+  password: string;
+  hashedPassword: string;
+};
 
-export { encryptData, decryptData };
+async function verifyPassword({
+  password,
+  hashedPassword,
+}: VerifyPasswordProps) {
+  return await bcrypt.compare(password, hashedPassword);
+}
+export { hashPassword, verifyPassword };

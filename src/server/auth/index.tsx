@@ -4,7 +4,6 @@ import { signIn as authSignIn } from '@/lib/auth';
 import prisma from '@/lib/db';
 import { hashPassword, verifyPassword } from '@/lib/encryption';
 import { SignInData, SignUpData } from './interfaces';
-import { redirect } from 'next/navigation';
 
 export const signUp = async ({ data }: { data: SignUpData }) => {
   try {
@@ -35,7 +34,6 @@ export const signUp = async ({ data }: { data: SignUpData }) => {
     });
 
     await authSignIn('nodemailer', { email: data.email, redirect: false });
-    redirect('/auth/verify-email');
   } catch {
     return { error: 'Ocorreu um erro, tente novamente mais tarde.' };
   }
@@ -66,7 +64,6 @@ export const signIn = async ({ data }: { data: SignInData }) => {
       password: user.password,
       redirect: false,
     });
-    redirect('/auth/verify-email');
   } catch {
     return { error: 'Ocorreu um erro, tente novamente mais tarde.' };
   }

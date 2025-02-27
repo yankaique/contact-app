@@ -35,34 +35,39 @@ export const signUp = async ({ data }: { data: SignUpData }) => {
     });
 
     await authSignIn('nodemailer', { email: data.email, redirect: false });
+    redirect('/auth/verify-email');
   } catch {
     return { error: 'Ocorreu um erro, tente novamente mais tarde.' };
   }
 };
 
 export const signIn = async ({ data }: { data: SignInData }) => {
-  const user = await prisma.user.findUnique({
-    where: {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: data.email,
+      },
+    });
+
+    if (!user) {
+      return { error: 'Email ou senha incorreta.' };
+    }
+
+    const decryptedPassword = await verifyPassword({
+      password: data.password,
+      hashedPassword: user.password,
+    });
+    if (!decryptedPassword) {
+      return { error: 'Email ou senha incorreta.' };
+    }
+
+    await authSignIn('nodemailer', {
       email: data.email,
-    },
-  });
-
-  if (!user) {
-    return { error: 'Email ou senha incorreta.' };
+      password: user.password,
+      redirect: false,
+    });
+    redirect('/auth/verify-email');
+  } catch {
+    return { error: 'Ocorreu um erro, tente novamente mais tarde.' };
   }
-
-  const decryptedPassword = await verifyPassword({
-    password: data.password,
-    hashedPassword: user.password,
-  });
-  if (!decryptedPassword) {
-    return { error: 'Email ou senha incorreta.' };
-  }
-
-  await authSignIn('nodemailer', {
-    email: data.email,
-    password: user.password,
-    redirect: false,
-  });
-  redirect('/auth/verify-email');
 };

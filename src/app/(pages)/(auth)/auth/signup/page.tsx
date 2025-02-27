@@ -22,7 +22,7 @@ import { formatCPF, formatPhone } from '@/utils/formatData';
 import { SubmitType } from './types';
 import { toasterColorError, toasterColorSuccess } from '@/utils/toasterColor';
 
-export default function Registrar() {
+export default function SignUp() {
   const {
     register,
     handleSubmit,
@@ -44,7 +44,7 @@ export default function Registrar() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-background p-4">
+    <div className="flex h-screen w-screen items-center justify-center bg-background">
       <Card className={cn('w-[680px]')}>
         <CardHeader>
           <div>

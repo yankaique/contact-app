@@ -15,9 +15,6 @@
     <a href="#install">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
-<div align="center">
-<img src="/.github/screen-example.png"/>
-</div>
 <br />
 
 <h3 id="introduction">Introdução 🏁</h3>
@@ -28,7 +25,6 @@
     <p>
         Todo o app é construído com Next.js, Tailwind CSS e Prisma. Aproveitei pra implementar algumas coisas novas que estou estudando e quebrar um pouco a cara, não ficou 100% mas tem um pouco do meu DNA nesse projetinho.
     </p>
-<br>
 <br>
 
 <h3 id="tecnologies">Tecnologias 🚀</h3>
@@ -50,12 +46,3 @@
         Node: v21.4.0
     </p>
 <br>
-
----
-
-<h6>
-    Follow me on Linkedin 
-    <a href="https://www.linkedin.com/in/yankaique/">
-        <img src="/.github/linkedin.png" />
-    </a>
-</h6>

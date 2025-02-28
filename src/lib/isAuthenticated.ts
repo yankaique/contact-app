@@ -1,4 +1,4 @@
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib';
 import { redirect } from 'next/navigation';
 
 export const isAuthenticated = async () => {

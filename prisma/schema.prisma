@@ -65,13 +65,18 @@ model VerificationToken {
 }
 
 model Contact {
-  id        String @id @default(cuid())
-  name      String @db.VarChar(100)
-  cpf       String @db.VarChar(60)
-  cellphone String @db.VarChar(60)
-  address   String @db.VarChar(200)
-  zipcode   String @db.VarChar(60)
-  lat       String
+  id           String @id @default(cuid())
+  name         String @db.VarChar(100)
+  cellphone    String @db.VarChar(60)
+  cpf          String @unique @db.VarChar(14)
+  uf           String @db.VarChar(2)
+  city         String @db.VarChar(100)
+  neighborhood String @db.VarChar(100)
+  address      String @db.VarChar(200)
+  zipcode      String @db.VarChar(60)
+  number       String? @db.VarChar(10)
+  complement   String? @db.VarChar(200)
+  lat          String
   long      String
   user      User @relation("UserContacts", fields: [userId], references: [id])
   userId    String

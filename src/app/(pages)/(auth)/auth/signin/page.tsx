@@ -1,5 +1,8 @@
-import { SignInPage } from '@/components/pages/auth/signin';
+'use server';
+import { SignInPage } from '@/components';
+import { isNotAuthenticated } from '@/lib';
 
-export default function SignIn() {
+export default async function SignIn() {
+  await isNotAuthenticated();
   return <SignInPage />;
 }

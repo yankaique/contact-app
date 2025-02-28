@@ -1,4 +1,4 @@
-import { ErrorPage } from '@/components/pages/auth/error';
+import { ErrorPage } from '@/components';
 
 export default function Error() {
   return <ErrorPage />;

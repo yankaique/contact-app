@@ -1,5 +1,8 @@
-import { VerifyEmailPage } from '@/components/pages/auth/verify-email';
+'use server';
+import { VerifyEmailPage } from '@/components';
+import { isNotAuthenticated } from '@/lib';
 
-export default function VerifyEmail() {
+export default async function VerifyEmail() {
+  await isNotAuthenticated();
   return <VerifyEmailPage />;
 }

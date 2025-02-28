@@ -1,7 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { redirect } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -20,8 +19,8 @@ import {
   Toaster,
 } from '@/components';
 
-export function SignInPage() {
-  const { login, isLoading } = useAuthStore();
+export function ForgotPasswordPage() {
+  const { loginWithoutPassword, isLoading } = useAuthStore();
   const {
     register,
     handleSubmit,
@@ -31,10 +30,7 @@ export function SignInPage() {
   });
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
-    await login({
-      email: data.email,
-      password: data.password,
-    });
+    await loginWithoutPassword(data.email);
   };
 
   return (
@@ -42,9 +38,9 @@ export function SignInPage() {
       <Card className={cn('w-[680px]')}>
         <CardHeader>
           <section>
-            <CardTitle>Entrar</CardTitle>
+            <CardTitle>Esqueci minha senha</CardTitle>
             <CardDescription>
-              Faça login e adicione seus contatos.
+              Digite seu email para receber um email mágico.
             </CardDescription>
           </section>
         </CardHeader>
@@ -63,40 +59,18 @@ export function SignInPage() {
                 <p className="text-destructive">{errors.email.message}</p>
               )}
             </CardContent>
-            <CardContent>
-              <Label htmlFor="password">Senha:</Label>
-              <Input
-                id="password"
-                type="password"
-                className={cn({ 'border-destructive': errors.password })}
-                placeholder="*************"
-                maxLength={60}
-                {...register('password')}
-              />
-              {errors.password && (
-                <p className="text-destructive">{errors.password.message}</p>
-              )}
-            </CardContent>
           </fieldset>
-          <CardFooter className="flex flex-col items-center justify-between md:flex-row">
+          <CardFooter className="flex flex-col items-center md:flex-row">
             <Button type="submit" isLoading={isLoading}>
-              Entrar
-            </Button>
-            <Button
-              onClick={() => redirect('/auth/forgot-password')}
-              type="button"
-              variant={'link'}
-              className="p-0"
-            >
-              Esqueci minha senha
+              Enviar
             </Button>
           </CardFooter>
         </form>
         <CardContent>
           <p>
-            Ainda não possui uma conta?{' '}
-            <Link href="/auth/signup" className="font-semibold text-primary">
-              Registrar
+            Lembrei da minha senha!
+            <Link href="/auth/signin" className="font-semibold text-primary">
+              Entrar
             </Link>
           </p>
         </CardContent>

@@ -1,12 +1,11 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Button, Card } from '@/components';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export function ErrorPage() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
+    <main className="flex h-screen w-screen items-center justify-center">
       <Card className="flex flex-col items-center gap-4 p-4">
         <Image
           src="/img/unauthorized-bro.svg"
@@ -19,6 +18,6 @@ export function ErrorPage() {
           <Button>Voltar</Button>
         </Link>
       </Card>
-    </div>
+    </main>
   );
 }

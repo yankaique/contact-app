@@ -1,5 +1,8 @@
-import { SignUpPage } from '@/components/pages/auth/signup';
+'use server';
+import { SignUpPage } from '@/components';
+import { isNotAuthenticated } from '@/lib';
 
-export default function SignUp() {
+export default async function SignUp() {
+  await isNotAuthenticated();
   return <SignUpPage />;
 }

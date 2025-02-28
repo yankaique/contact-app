@@ -4,12 +4,10 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { Toaster } from 'sonner';
-
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { schema } from './schema';
+import { formatCPF, formatPhone } from '@/utils/formatData';
+import { useAuthStore } from '@/controllers';
 import {
   Card,
   CardContent,
@@ -17,9 +15,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { formatCPF, formatPhone } from '@/utils/formatData';
-import { useAuthStore } from '@/hooks/auth';
+  Button,
+  Input,
+  Label,
+} from '@/components';
 
 export function SignUpPage() {
   const { register: signUp, isLoading } = useAuthStore();
@@ -37,19 +36,19 @@ export function SignUpPage() {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-background">
+    <main className="flex h-screen w-screen items-center justify-center bg-background">
       <Card className={cn('w-[680px]')}>
         <CardHeader>
-          <div>
+          <section>
             <CardTitle>Registrar</CardTitle>
             <CardDescription>
               Faça seu cadastro e adicione seus contatos.
             </CardDescription>
-          </div>
+          </section>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
-            <Label htmlFor="name">Nome</Label>
+            <Label htmlFor="name">Nome:</Label>
             <Input
               id="name"
               type="text"
@@ -63,7 +62,7 @@ export function SignUpPage() {
             )}
           </CardContent>
           <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div>
+            <section>
               <Label htmlFor="birthday">Data de aniversário:</Label>
               <Input
                 id="birthday"
@@ -74,8 +73,8 @@ export function SignUpPage() {
               {errors.birthday && (
                 <p className="text-destructive">{errors.birthday.message}</p>
               )}
-            </div>
-            <div>
+            </section>
+            <section>
               <Label htmlFor="cpf">CPF:</Label>
               <Input
                 id="cpf"
@@ -89,11 +88,11 @@ export function SignUpPage() {
               {errors.cpf && (
                 <p className="text-destructive">{errors.cpf.message}</p>
               )}
-            </div>
+            </section>
           </CardContent>
           <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div>
-              <Label htmlFor="cellphone">Telefone</Label>
+            <section>
+              <Label htmlFor="cellphone">Telefone:</Label>
               <Input
                 id="cellphone"
                 type="text"
@@ -108,8 +107,8 @@ export function SignUpPage() {
               {errors.cellphone && (
                 <p className="text-destructive">{errors.cellphone.message}</p>
               )}
-            </div>
-            <div>
+            </section>
+            <section>
               <Label htmlFor="email">Email:</Label>
               <Input
                 id="email"
@@ -121,10 +120,10 @@ export function SignUpPage() {
               {errors.email && (
                 <p className="text-destructive">{errors.email.message}</p>
               )}
-            </div>
+            </section>
           </CardContent>
           <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div>
+            <section>
               <Label htmlFor="password">Senha:</Label>
               <Input
                 id="password"
@@ -137,8 +136,8 @@ export function SignUpPage() {
               {errors.password && (
                 <p className="text-destructive">{errors.password.message}</p>
               )}
-            </div>
-            <div>
+            </section>
+            <section>
               <Label htmlFor="confirm-password">Confirme sua senha:</Label>
               <Input
                 id="confirm-password"
@@ -153,7 +152,7 @@ export function SignUpPage() {
                   {errors.confirmPassword.message}
                 </p>
               )}
-            </div>
+            </section>
           </CardContent>
           <CardFooter>
             <Button type="submit" isLoading={isLoading}>
@@ -163,14 +162,14 @@ export function SignUpPage() {
         </form>
         <CardContent>
           <p>
-            Ja possui uma conta?{' '}
-            <Link href="/auth/signin" className="font-bold text-primary">
+            Já possui uma conta?{' '}
+            <Link href="/auth/signin" className="font-semibold text-primary">
               Entrar
             </Link>
           </p>
         </CardContent>
       </Card>
       <Toaster />
-    </div>
+    </main>
   );
 }
